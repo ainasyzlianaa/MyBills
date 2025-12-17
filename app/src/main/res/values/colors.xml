@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Soft Blue Theme -->
+    <color name="blue_primary">#EAF2FF</color>
+    <color name="blue_accent">#4A7AFF</color>
+
+    <!-- Buttons -->
+    <color name="green_save">#4CAF50</color>
+    <color name="red_delete">#E53935</color>
+
+    <!-- Text -->
+    <color name="text_primary">#1E1E1E</color>
+
+</resources>
