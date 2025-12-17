@@ -1,9 +1,12 @@
 package com.example.mybills;
 
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.os.Bundle;
 import android.widget.*;
 import android.content.Intent;
+
+import com.google.android.material.snackbar.Snackbar;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -27,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
 
         db = new DBHelper(this);
 
+        // Spinner setup
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
                 this,
                 R.array.months,
@@ -49,28 +53,28 @@ public class MainActivity extends AppCompatActivity {
         etUnit.setError(null);
         etRebate.setError(null);
 
-        // MONTH VALIDATION WITH RED ERROR
+        // Month validation
         if (spMonth.getSelectedItemPosition() == 0) {
-
             TextView errorText = (TextView) spMonth.getSelectedView();
             if (errorText != null) {
                 errorText.setError("Month is required");
-                errorText.setTextColor(getResources().getColor(android.R.color.holo_red_dark));
+                errorText.setTextColor(
+                        getResources().getColor(android.R.color.holo_red_dark)
+                );
                 errorText.setText("Please select a month");
             }
-
             spMonth.requestFocus();
             return;
         }
 
-        // UNIT EMPTY
+        // Unit empty
         if (etUnit.getText().toString().trim().isEmpty()) {
             etUnit.setError("Electricity unit is required");
             etUnit.requestFocus();
             return;
         }
 
-        // REBATE EMPTY
+        // Rebate empty
         if (etRebate.getText().toString().trim().isEmpty()) {
             etRebate.setError("Rebate percentage is required (0–5)");
             etRebate.requestFocus();
@@ -89,21 +93,21 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
-        // UNIT NEGATIVE / ZERO
+        // Unit <= 0
         if (unit <= 0) {
             etUnit.setError("Electricity unit must be greater than 0");
             etUnit.requestFocus();
             return;
         }
 
-        // REBATE RANGE
+        // Rebate range
         if (rebatePercent < 0 || rebatePercent > 5) {
             etRebate.setError("Rebate must be between 0 and 5 only");
             etRebate.requestFocus();
             return;
         }
 
-        // ✅ CALCULATION
+        // Calculation
         double totalCharge = calculateCharge(unit);
         double rebate = rebatePercent / 100.0;
         double finalCost = totalCharge - (totalCharge * rebate);
@@ -113,6 +117,7 @@ public class MainActivity extends AppCompatActivity {
                         "\nFinal Cost: RM " + String.format("%.2f", finalCost)
         );
 
+        // Save to database
         db.insertBill(
                 spMonth.getSelectedItem().toString(),
                 unit,
@@ -121,10 +126,22 @@ public class MainActivity extends AppCompatActivity {
                 finalCost
         );
 
-        Toast.makeText(this, "Bill calculated and saved successfully", Toast.LENGTH_SHORT).show();
+        // Success message
+        Snackbar snackbar = Snackbar.make(
+                findViewById(android.R.id.content),
+                "✔ Bill calculated and saved successfully",
+                Snackbar.LENGTH_SHORT
+        );
+        snackbar.setBackgroundTint(
+                getResources().getColor(android.R.color.holo_green_dark)
+        );
+        snackbar.setTextColor(
+                getResources().getColor(android.R.color.white)
+        );
+        snackbar.show();
     }
 
-
+    // Block calculation
     private double calculateCharge(int unit) {
         if (unit <= 200)
             return unit * 0.218;

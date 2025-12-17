@@ -1,5 +1,6 @@
 package com.example.mybills;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.database.Cursor;
@@ -33,53 +34,65 @@ public class DetailActivity extends AppCompatActivity {
 
         loadBillDetails();
 
-        btnDelete.setOnClickListener(v -> {
-
-            // 1️⃣ Perform delete
-            int result = db.deleteBill(billId);
-
-            // 2️⃣ Check result BEFORE showing message
-            if (result > 0) {
-                // ✅ Delete successful
-                Snackbar snackbar = Snackbar.make(
-                        findViewById(android.R.id.content),
-                        "✔ Bill deleted successfully",
-                        Snackbar.LENGTH_SHORT
-                );
-
-                snackbar.setBackgroundTint(
-                        getResources().getColor(android.R.color.holo_green_dark)
-                );
-                snackbar.setTextColor(
-                        getResources().getColor(android.R.color.white)
-                );
-                snackbar.show();
-
-                // 3️⃣ Delay exit so user sees success
-                new Handler().postDelayed(() -> {
-                    setResult(RESULT_OK);
-                    finish();
-                }, 1200);
-
-            } else {
-                // ❌ Delete failed (edge case, but professional)
-                Snackbar snackbar = Snackbar.make(
-                        findViewById(android.R.id.content),
-                        "❌ Failed to delete bill",
-                        Snackbar.LENGTH_SHORT
-                );
-
-                snackbar.setBackgroundTint(
-                        getResources().getColor(android.R.color.holo_red_dark)
-                );
-                snackbar.setTextColor(
-                        getResources().getColor(android.R.color.white)
-                );
-                snackbar.show();
-            }
-        });
+        btnDelete.setOnClickListener(v -> showDeleteConfirmation());
     }
 
+    // Confirmation dialog
+    private void showDeleteConfirmation() {
+
+        new AlertDialog.Builder(this)
+                .setTitle("Delete Bill")
+                .setMessage("Are you sure you want to delete this bill?")
+                .setCancelable(false)
+                .setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss())
+                .setPositiveButton("Delete", (dialog, which) -> deleteBill())
+                .show();
+    }
+
+    // Delete bill after confirmation
+    private void deleteBill() {
+
+        int result = db.deleteBill(billId);
+
+        if (result > 0) {
+            Snackbar snackbar = Snackbar.make(
+                    findViewById(android.R.id.content),
+                    "✔ Bill deleted successfully",
+                    Snackbar.LENGTH_SHORT
+            );
+
+            snackbar.setBackgroundTint(
+                    getResources().getColor(R.color.green_save)
+            );
+            snackbar.setTextColor(
+                    getResources().getColor(android.R.color.white)
+            );
+            snackbar.show();
+
+            // Delay closing page
+            new Handler().postDelayed(() -> {
+                setResult(RESULT_OK);
+                finish();
+            }, 1200);
+
+        } else {
+            Snackbar snackbar = Snackbar.make(
+                    findViewById(android.R.id.content),
+                    "❌ Failed to delete bill",
+                    Snackbar.LENGTH_SHORT
+            );
+
+            snackbar.setBackgroundTint(
+                    getResources().getColor(android.R.color.holo_red_dark)
+            );
+            snackbar.setTextColor(
+                    getResources().getColor(android.R.color.white)
+            );
+            snackbar.show();
+        }
+    }
+
+    // Load bill data (view-only)
     private void loadBillDetails() {
         Cursor c = db.getBillById(billId);
 

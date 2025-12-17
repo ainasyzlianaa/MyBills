@@ -13,7 +13,7 @@
         android:theme="@style/Theme.MyBills"
         tools:targetApi="31">
 
-        <!-- SPLASH SCREEN (LAUNCHER) -->
+        <!-- Splash Screen (Launcher) -->
         <activity
             android:name=".SplashActivity"
             android:exported="true">
@@ -23,12 +23,12 @@
             </intent-filter>
         </activity>
 
-        <!-- MENU PAGE -->
+        <!-- Menu Page -->
         <activity
             android:name=".MenuActivity"
             android:exported="true" />
 
-        <!-- OTHER PAGES -->
+        <!-- Other Pages -->
         <activity
             android:name=".MainActivity"
             android:exported="false" />

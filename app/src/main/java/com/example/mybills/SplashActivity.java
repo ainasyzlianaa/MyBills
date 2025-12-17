@@ -12,7 +12,7 @@ public class SplashActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-        // Delay 2 seconds then go to MenuActivity
+        // Delay 2 seconds before go to MenuActivity
         new Handler().postDelayed(() -> {
             startActivity(new Intent(SplashActivity.this, MenuActivity.class));
             finish();
