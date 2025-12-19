@@ -43,7 +43,6 @@ public class DetailActivity extends AppCompatActivity {
         btnDelete.setOnClickListener(v -> showDeleteConfirmation());
     }
 
-    // Load Details
     private void loadBillDetails() {
         Cursor c = db.getBillById(billId);
 
@@ -67,7 +66,7 @@ public class DetailActivity extends AppCompatActivity {
         }
     }
 
-    // Edit Bill
+    // Edit bill
     private void showEditDialog() {
 
         LinearLayout layout = new LinearLayout(this);
@@ -76,7 +75,6 @@ public class DetailActivity extends AppCompatActivity {
 
         TextView tvUnitLabel = new TextView(this);
         tvUnitLabel.setText("Electricity Unit (kWh)");
-        tvUnitLabel.setTextSize(14f);
 
         EditText etUnit = new EditText(this);
         etUnit.setInputType(android.text.InputType.TYPE_CLASS_NUMBER);
@@ -84,16 +82,13 @@ public class DetailActivity extends AppCompatActivity {
 
         TextView tvRebateLabel = new TextView(this);
         tvRebateLabel.setText("Rebate (%)");
-        tvRebateLabel.setTextSize(14f);
 
         RadioGroup rgRebate = new RadioGroup(this);
         rgRebate.setOrientation(RadioGroup.HORIZONTAL);
 
-        // Create radio buttons for rebate
         for (int i = 0; i <= 5; i++) {
             RadioButton rb = new RadioButton(this);
             rb.setText(String.valueOf(i));
-
             rb.setId(View.generateViewId());
 
             LinearLayout.LayoutParams params =
@@ -104,11 +99,7 @@ public class DetailActivity extends AppCompatActivity {
             params.setMargins(0, 0, 16, 0);
             rb.setLayoutParams(params);
 
-            // Set checked state
-            if (i == currentRebate) {
-                rb.setChecked(true);
-            }
-
+            if (i == currentRebate) rb.setChecked(true);
             rgRebate.addView(rb);
         }
 
@@ -131,7 +122,6 @@ public class DetailActivity extends AppCompatActivity {
 
                 etUnit.setError(null);
 
-                // Unit empty
                 if (etUnit.getText().toString().trim().isEmpty()) {
                     etUnit.setError("Electricity unit is required");
                     etUnit.requestFocus();
@@ -147,20 +137,14 @@ public class DetailActivity extends AppCompatActivity {
                     return;
                 }
 
-                // kWh range 1–1000
                 if (newUnit < 1 || newUnit > 1000) {
                     etUnit.setError("Electricity unit must be between 1 and 1000 kWh");
                     etUnit.requestFocus();
                     return;
                 }
 
-                // Rebate selected
                 if (rgRebate.getCheckedRadioButtonId() == -1) {
-                    Toast.makeText(
-                            this,
-                            "Please select rebate value",
-                            Toast.LENGTH_SHORT
-                    ).show();
+                    Toast.makeText(this, "Please select rebate value", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -169,7 +153,7 @@ public class DetailActivity extends AppCompatActivity {
 
                 int newRebate = Integer.parseInt(selectedRb.getText().toString());
                 double newTotal = calculateCharge(newUnit);
-                double newFinal = newTotal - (newTotal * (newRebate / 100.0));
+                double newFinal = newTotal - (newTotal * newRebate / 100.0);
 
                 int result = db.updateBill(
                         billId,
@@ -185,9 +169,7 @@ public class DetailActivity extends AppCompatActivity {
                             "✔ Bill updated successfully",
                             Snackbar.LENGTH_SHORT
                     );
-                    snackbar.setBackgroundTint(
-                            getResources().getColor(R.color.green_save)
-                    );
+                    snackbar.setBackgroundTint(getResources().getColor(R.color.green_save));
                     snackbar.setTextColor(Color.WHITE);
                     snackbar.show();
 
@@ -200,7 +182,7 @@ public class DetailActivity extends AppCompatActivity {
         dialog.show();
     }
 
-    // Delete Bill
+    // Delete bill
     private void showDeleteConfirmation() {
         new AlertDialog.Builder(this)
                 .setTitle("Delete Bill")
@@ -214,6 +196,7 @@ public class DetailActivity extends AppCompatActivity {
         int result = db.deleteBill(billId);
 
         if (result > 0) {
+
             Snackbar snackbar = Snackbar.make(
                     findViewById(android.R.id.content),
                     "✔ Bill deleted successfully",
@@ -225,9 +208,14 @@ public class DetailActivity extends AppCompatActivity {
             snackbar.setTextColor(Color.WHITE);
             snackbar.show();
 
-            new Handler().postDelayed(this::finish, 1200);
+            // Close detail page after delete
+            new Handler().postDelayed(() -> {
+                setResult(RESULT_OK);
+                finish();
+            }, 1000);
         }
     }
+
 
     private double calculateCharge(int unit) {
         if (unit <= 200)
