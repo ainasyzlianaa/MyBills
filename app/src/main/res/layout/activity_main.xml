@@ -14,13 +14,13 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Electricity Calculator"
-            android:textSize="22sp"
+            android:text="@string/title_calculator"
+            android:textSize="20sp"
             android:textStyle="bold"
             android:textColor="@color/text_primary"
             android:layout_marginBottom="12dp"/>
 
-        <!-- Card -->
+        <!-- Main Card -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -33,7 +33,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Choose Your Month"
+                android:text="@string/choose_month"
                 android:textStyle="bold"/>
 
             <Spinner
@@ -43,46 +43,97 @@
                 android:minHeight="48dp"
                 android:layout_marginBottom="12dp"/>
 
-            <!-- Unit -->
+            <!-- Electricity Unit -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Electricity Unit (kWh)"
+                android:text="@string/unit_label"
                 android:textStyle="bold"/>
 
             <EditText
                 android:id="@+id/etUnit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="number"
                 android:minHeight="48dp"
-                android:padding="12dp"
+                android:inputType="number"
+                android:hint="@string/unit_hint"
+                android:importantForAutofill="no"
                 android:layout_marginBottom="12dp"/>
 
             <!-- Rebate -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Rebate (%)"
+                android:text="@string/rebate_label"
                 android:textStyle="bold"/>
 
-            <EditText
-                android:id="@+id/etRebate"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="number"
-                android:minHeight="48dp"
-                android:padding="12dp"
-                android:hint="0 – 5"/>
-
-            <!-- Result -->
-            <TextView
-                android:id="@+id/tvResult"
+            <RadioGroup
+                android:id="@+id/rgRebate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:textSize="16sp"
-                android:layout_marginTop="16dp"/>
+                android:orientation="horizontal"
+                android:layout_marginBottom="12dp">
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"/>
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="1"/>
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="2"/>
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="3"/>
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="4"/>
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="5"/>
+            </RadioGroup>
+
+            <!-- Result Card -->
+            <LinearLayout
+                android:id="@+id/layoutResult"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="#F5F7FA"
+                android:padding="12dp"
+                android:layout_marginTop="8dp"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/tvTotalCharge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/total_charge"
+                    android:textStyle="bold"
+                    android:textSize="15sp"
+                    android:layout_marginBottom="6dp"/>
+
+                <TextView
+                    android:id="@+id/tvFinalCost"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/final_cost"
+                    android:textStyle="bold"
+                    android:textSize="15sp"/>
+            </LinearLayout>
+
         </LinearLayout>
 
         <!-- Calculate Button -->
@@ -90,20 +141,22 @@
             android:id="@+id/btnCalculate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Calculate and Save"
+            android:minHeight="48dp"
+            android:text="@string/btn_calculate"
             android:textColor="@android:color/white"
             android:backgroundTint="@color/green_save"
-            android:layout_marginTop="24dp"/>
+            android:layout_marginTop="16dp"/>
 
         <!-- View Bills Button -->
         <Button
             android:id="@+id/btnViewBills"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="View My Bills"
-            android:textColor="@color/text_primary"
+            android:minHeight="48dp"
+            android:text="@string/btn_view_bills"
+            android:textColor="@android:color/black"
             android:backgroundTint="#E0E0E0"
-            android:layout_marginTop="10dp"/>
+            android:layout_marginTop="8dp"/>
 
     </LinearLayout>
 </ScrollView>

@@ -15,7 +15,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="About Page"
+            android:text="About MyBills"
             android:textSize="22sp"
             android:textStyle="bold"
             android:textColor="@color/text_primary"
@@ -26,17 +26,26 @@
             android:layout_width="120dp"
             android:layout_height="120dp"
             android:src="@drawable/me"
-            android:layout_marginBottom="12dp"
+            android:layout_marginBottom="16dp"
             android:contentDescription="Profile Image"/>
 
-        <!-- Card -->
+        <!-- About Card -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:background="@android:color/white"
             android:padding="16dp"
-            android:elevation="4dp">
+            android:elevation="4dp"
+            android:layout_marginBottom="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="About Developer"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:layout_marginBottom="8dp"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -57,29 +66,61 @@
                 android:layout_height="wrap_content"
                 android:text="Course: ICT602 - Mobile Technology and Development"
                 android:textSize="15sp"
-                android:layout_marginBottom="12dp"/>
+                android:layout_marginBottom="10dp"/>
 
-            <!-- GitHub Link -->
-            <Button
-                android:id="@+id/btnGithub"
-                android:layout_width="match_parent"
+            <!-- GitHub URL -->
+            <LinearLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="View Project on GitHub"
-                android:textSize="13sp"
-                android:textColor="@android:color/white"
-                android:backgroundTint="@color/blue_accent"
-                android:paddingTop="6dp"
-                android:paddingBottom="6dp"
-                android:layout_marginTop="8dp"/>
+                android:orientation="horizontal">
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="GitHub URL: "
+                    android:textSize="14sp"
+                    android:textColor="@color/text_primary"/>
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="https://github.com/ainasyzlianaa/MyBills"
+                    android:textSize="14sp"
+                    android:textColor="@color/blue_accent"
+                    android:autoLink="web"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Instructions -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@android:color/white"
+            android:padding="16dp"
+            android:elevation="4dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="How to Use This App"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:layout_marginBottom="8dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1. Select the month.\n2. Enter electricity usage in kWh.\n3. Enter rebate percentage (0–5).\n4. Tap 'Calculate and Save' to store the bill.\n5. Tap 'View My Bills' to view saved records.\n6. Select a bill to view details, edit, or delete."
+                android:textSize="14sp"
+                android:textColor="@color/text_primary"/>
         </LinearLayout>
 
         <!-- Footer -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="© 2025 UiTM"
+            android:text="© 2025 MyBills. All rights reserved."
             android:textSize="13sp"
             android:textColor="#666666"
             android:layout_marginTop="20dp"/>

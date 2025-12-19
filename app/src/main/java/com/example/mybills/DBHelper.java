@@ -66,4 +66,16 @@ public class DBHelper extends SQLiteOpenHelper {
         return db.delete("bills", "id=?", new String[]{String.valueOf(id)});
     }
 
+    public int updateBill(int id, int unit, int rebate, double total, double finalCost) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        cv.put("unit", unit);
+        cv.put("rebate", rebate);
+        cv.put("total", total);
+        cv.put("final", finalCost);
+
+        return db.update("bills", cv, "id=?", new String[]{String.valueOf(id)});
+    }
+
 }

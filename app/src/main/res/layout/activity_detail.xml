@@ -29,53 +29,44 @@
             android:padding="16dp"
             android:elevation="4dp">
 
-            <!-- Month -->
             <TextView
                 android:id="@+id/tvMonth"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
                 android:textSize="16sp"
-                android:layout_marginBottom="16dp"/>
+                android:layout_marginBottom="12dp"/>
 
-            <!-- Unit -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Electricity Unit (kWh)"
-                android:textStyle="bold"
-                android:textColor="@color/text_primary"/>
+                android:textStyle="bold"/>
 
             <TextView
                 android:id="@+id/tvUnit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="16sp"
                 android:layout_marginBottom="12dp"/>
 
-            <!-- Rebate -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Rebate (%)"
-                android:textStyle="bold"
-                android:textColor="@color/text_primary"/>
+                android:textStyle="bold"/>
 
             <TextView
                 android:id="@+id/tvRebate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="16sp"
-                android:layout_marginBottom="16dp"/>
+                android:layout_marginBottom="12dp"/>
 
-            <!-- Divider -->
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="#DDDDDD"
                 android:layout_marginBottom="12dp"/>
 
-            <!-- Charges -->
             <TextView
                 android:id="@+id/tvResult"
                 android:layout_width="wrap_content"
@@ -84,15 +75,33 @@
                 android:textSize="16sp"/>
         </LinearLayout>
 
-        <!-- Delete Button -->
-        <Button
-            android:id="@+id/btnDelete"
+        <!-- Edit & Delete Buttons -->
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Delete Bill"
-            android:textColor="@android:color/white"
-            android:backgroundTint="@color/red_delete"
-            android:layout_marginTop="24dp"/>
+            android:orientation="horizontal"
+            android:layout_marginTop="24dp"
+            android:weightSum="2">
+
+            <Button
+                android:id="@+id/btnEdit"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Edit"
+                android:textColor="@color/text_primary"
+                android:backgroundTint="#E0E0E0"
+                android:layout_marginEnd="8dp"/>
+
+            <Button
+                android:id="@+id/btnDelete"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Delete"
+                android:textColor="@android:color/white"
+                android:backgroundTint="@color/red_delete"/>
+        </LinearLayout>
 
     </LinearLayout>
 </ScrollView>
